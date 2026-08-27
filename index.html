@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relative Time Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            margin: 20px;
+            color: #333;
+        }
+
+        #clock {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 25px;
+            cursor: pointer;
+            border-radius: 50px;
+            background: #e4e7eb;
+            margin: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab.active,
+        .tab:hover {
+            background: #4f46e5;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .tab-content {
+            max-width: 450px;
+            margin: 0 auto;
+            text-align: center;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="clock">YYYY, Month DD:HH:MM:SS</div>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="year">Year</div>
+        <div class="tab" data-tab="month">Month</div>
+        <div class="tab" data-tab="week">Week</div>
+        <div class="tab" data-tab="day">Day</div>
+        <div class="tab" data-tab="hour">Hour</div>
+        <div class="tab" data-tab="minute">Minute</div>
+    </div>
+
+    <div class="tab-content" id="tabContent">
+        Loading stats...
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.toLocaleString('default', { month: 'long' });
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('clock').textContent =
+                `${year}, ${month} ${day}:${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const tabs = document.querySelectorAll('.tab');
+        const tabContent = document.getElementById('tabContent');
+
+        function calculateRelativeStats() {
+            const now = new Date();
+
+            // Year stats
+            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            const diffYearMs = now - startOfYear;
+            const yearMonths = now.getMonth() + 1;
+            const yearWeeks = Math.floor(diffYearMs / (1000 * 60 * 60 * 24 * 7));
+            const yearDays = Math.floor(diffYearMs / (1000 * 60 * 60 * 24)) + 1;
+            const yearHours = Math.floor(diffYearMs / (1000 * 60 * 60));
+            const yearMinutes = Math.floor(diffYearMs / (1000 * 60));
+            const yearSeconds = Math.floor(diffYearMs / 1000);
+
+            // Month stats
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const diffMonthMs = now - startOfMonth;
+            const monthWeeks = Math.floor(diffMonthMs / (1000 * 60 * 60 * 24 * 7));
+            const monthDays = Math.floor(diffMonthMs / (1000 * 60 * 60 * 24)) + 1;
+            const monthHours = Math.floor(diffMonthMs / (1000 * 60 * 60));
+            const monthMinutes = Math.floor(diffMonthMs / (1000 * 60));
+            const monthSeconds = Math.floor(diffMonthMs / 1000);
+
+            // Week stats
+            const startOfWeek = new Date(now);
+            startOfWeek.setHours(0, 0, 0, 0);
+            startOfWeek.setDate(now.getDate() - now.getDay());
+            const diffWeekMs = now - startOfWeek;
+            const weekDays = Math.floor(diffWeekMs / (1000 * 60 * 60 * 24)) + 1;
+            const weekHours = Math.floor(diffWeekMs / (1000 * 60 * 60));
+            const weekMinutes = Math.floor(diffWeekMs / (1000 * 60));
+            const weekSeconds = Math.floor(diffWeekMs / 1000);
+
+            // Day stats
+            const startOfDay = new Date(now);
+            startOfDay.setHours(0, 0, 0, 0);
+            const diffDayMs = now - startOfDay;
+            const dayHours = Math.floor(diffDayMs / (1000 * 60 * 60));
+            const dayMinutes = Math.floor(diffDayMs / (1000 * 60));
+            const daySeconds = Math.floor(diffDayMs / 1000);
+
+            // Hour stats
+            const startOfHour = new Date(now);
+            startOfHour.setMinutes(0, 0, 0);
+            const diffHourMs = now - startOfHour;
+            const hourMinutes = Math.floor(diffHourMs / (1000 * 60));
+            const hourSeconds = Math.floor(diffHourMs / 1000);
+
+            // Minute stats
+            const startOfMinute = new Date(now);
+            startOfMinute.setSeconds(0, 0);
+            const diffMinuteMs = now - startOfMinute;
+            const minuteSeconds = Math.floor(diffMinuteMs / 1000);
+
+            return {
+                year: { yearMonths, yearWeeks, yearDays, yearHours, yearMinutes, yearSeconds },
+                month: { monthWeeks, monthDays, monthHours, monthMinutes, monthSeconds },
+                week: { weekDays, weekHours, weekMinutes, weekSeconds },
+                day: { dayHours, dayMinutes, daySeconds },
+                hour: { hourMinutes, hourSeconds },
+                minute: { minuteSeconds }
+            };
+        }
+
+        function updateTab() {
+            const stats = calculateRelativeStats();
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+
+            let text = '';
+            switch (activeTab) {
+                case 'year':
+                    text = `Year Progress:\nMonths: ${stats.year.yearMonths}\nWeeks: ${stats.year.yearWeeks}\nDays: ${stats.year.yearDays}\nHours: ${stats.year.yearHours}\nMinutes: ${stats.year.yearMinutes}\nSeconds: ${stats.year.yearSeconds}`;
+                    break;
+                case 'month':
+                    text = `Month Progress:\nWeeks: ${stats.month.monthWeeks}\nDays: ${stats.month.monthDays}\nHours: ${stats.month.monthHours}\nMinutes: ${stats.month.monthMinutes}\nSeconds: ${stats.month.monthSeconds}`;
+                    break;
+                case 'week':
+                    text = `Week Progress:\nDays: ${stats.week.weekDays}\nHours: ${stats.week.weekHours}\nMinutes: ${stats.week.weekMinutes}\nSeconds: ${stats.week.weekSeconds}`;
+                    break;
+                case 'day':
+                    text = `Day Progress:\nHours: ${stats.day.dayHours}\nMinutes: ${stats.day.dayMinutes}\nSeconds: ${stats.day.daySeconds}`;
+                    break;
+                case 'hour':
+                    text = `Hour Progress:\nMinutes: ${stats.hour.hourMinutes}\nSeconds: ${stats.hour.hourSeconds}`;
+                    break;
+                case 'minute':
+                    text = `Minute Progress:\nSeconds: ${stats.minute.minuteSeconds}`;
+                    break;
+            }
+
+            tabContent.textContent = text;
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                updateTab();
+            });
+        });
+
+        setInterval(updateTab, 1000);
+        updateTab();
+    </script>
+
+</body>
+
+</html>
+
