@@ -1,102 +1,340 @@
-
-
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relative Time Stats</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <script>
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-bs-theme', 'light');
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <style>
+        :root {
+            --bg: #f7f8fa;
+            --surface: rgba(255, 255, 255, 0.72);
+            --surface-strong: rgba(255, 255, 255, 0.92);
+            --border: rgba(107, 114, 121, 0.35);
+            --text: #212529;
+            --muted: #6c757d;
+            --accent: #2d6fff;
+            --accent-soft: rgba(45, 111, 255, 0.10);
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-bs-theme="dark"] {
+            --bg: #151719;
+            --surface: rgba(25, 28, 31, 0.76);
+            --surface-strong: rgba(29, 32, 35, 0.94);
+            --border: rgba(107, 114, 121, 0.6);
+            --text: #f8f9fa;
+            --muted: #adb5bd;
+            --accent: #5f8fff;
+            --accent-soft: rgba(95, 143, 255, 0.14);
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.32);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fa;
-            margin: 20px;
-            color: #333;
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left,
+                    rgba(45, 111, 255, 0.14),
+                    transparent 36%),
+                radial-gradient(circle at bottom right,
+                    rgba(77, 172, 0, 0.10),
+                    transparent 32%),
+                var(--bg);
+        }
+
+        .veil {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            backdrop-filter: blur(3px);
+        }
+
+        .container {
+            width: min(900px, 92%);
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        header {
+            margin-bottom: 28px;
+        }
+
+        .header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .header-domain {
+            font-family: "Roboto Mono", monospace;
+            color: var(--accent);
+            font-size: 0.95rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 35px 20px 10px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-weight: 400;
+            font-size: clamp(2rem, 6vw, 3.2rem);
+        }
+
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.05rem;
         }
 
         #clock {
-            font-size: 2rem;
-            font-weight: 600;
+            margin-top: 30px;
+            padding: 28px;
             text-align: center;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+            font-family: "Roboto Mono", monospace;
+            font-size: clamp(1.4rem, 5vw, 2.3rem);
             letter-spacing: 1px;
+        }
+
+        .tabs-wrapper {
+            margin-top: 24px;
+            padding: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
         }
 
         .tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
             flex-wrap: wrap;
+            gap: 8px;
         }
 
         .tab {
-            padding: 10px 25px;
+            border: 1px solid transparent;
+            padding: 9px 18px;
+            border-radius: 8px;
             cursor: pointer;
-            border-radius: 50px;
-            background: #e4e7eb;
-            margin: 5px;
-            transition: all 0.3s;
-            font-weight: 500;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            color: var(--muted);
+            transition: 0.18s ease;
+            user-select: none;
+            font-size: 0.95rem;
         }
 
-        .tab.active,
         .tab:hover {
-            background: #4f46e5;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            color: var(--accent);
+            background: var(--accent-soft);
         }
 
-        .tab-content {
-            max-width: 450px;
-            margin: 0 auto;
+        .tab.active {
+            color: #fff;
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .card {
+            margin-top: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .card-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+            color: var(--muted);
+        }
+
+        .card-body {
+            padding: 28px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .stat {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface-strong);
+        }
+
+        .stat-label {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-family: "Roboto Mono", monospace;
+            font-size: 1.35rem;
+            font-weight: 500;
+        }
+
+        footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
             text-align: center;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            white-space: pre-line;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding-top: 24px;
+            }
+
+            .header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero {
+                padding-top: 28px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .tab {
+                padding: 8px 13px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div id="clock">YYYY, Month DD:HH:MM:SS</div>
+    <div class="veil"></div>
 
-    <div class="tabs">
-        <div class="tab active" data-tab="year">Year</div>
-        <div class="tab" data-tab="month">Month</div>
-        <div class="tab" data-tab="week">Week</div>
-        <div class="tab" data-tab="day">Day</div>
-        <div class="tab" data-tab="hour">Hour</div>
-        <div class="tab" data-tab="minute">Minute</div>
-    </div>
+    <div class="container">
 
-    <div class="tab-content" id="tabContent">
-        Loading stats...
+        <header>
+            <div class="header-bar">
+                <div class="header-title">
+                    Relative Time Statistics
+                </div>
+
+                <div class="header-domain">
+                    clock.alphabeti.co.tz
+                </div>
+            </div>
+
+            <div class="hero">
+                <h1>Time Progress</h1>
+                <p>Live relative statistics for the current period.</p>
+            </div>
+        </header>
+
+        <main>
+
+            <div id="clock">
+                YYYY, Month DD:HH:MM:SS
+            </div>
+
+            <div class="tabs-wrapper">
+                <div class="tabs">
+                    <div class="tab active" data-tab="year">Year</div>
+                    <div class="tab" data-tab="month">Month</div>
+                    <div class="tab" data-tab="week">Week</div>
+                    <div class="tab" data-tab="day">Day</div>
+                    <div class="tab" data-tab="hour">Hour</div>
+                    <div class="tab" data-tab="minute">Minute</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="cardTitle">
+                    Year Progress
+                </div>
+
+                <div class="card-body">
+                    <div class="stats" id="tabContent"></div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            clock.alphabeti.co.tz
+        </footer>
+
     </div>
 
     <script>
         function updateClock() {
             const now = new Date();
+
             const year = now.getFullYear();
-            const month = now.toLocaleString('default', { month: 'long' });
+            const month = now.toLocaleString('default', {
+                month: 'long'
+            });
+
             const day = String(now.getDate()).padStart(2, '0');
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
 
             document.getElementById('clock').textContent =
-                `${year}, ${month} ${day}:${hours}:${minutes}:${seconds}`;
+                `${year}, ${month} ${day} ${hours}:${minutes}:${seconds}`;
         }
 
         setInterval(updateClock, 1000);
@@ -104,112 +342,305 @@
 
         const tabs = document.querySelectorAll('.tab');
         const tabContent = document.getElementById('tabContent');
+        const cardTitle = document.getElementById('cardTitle');
 
         function calculateRelativeStats() {
             const now = new Date();
 
-            // Year stats
-            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            const startOfYear =
+                new Date(now.getFullYear(), 0, 1);
+
             const diffYearMs = now - startOfYear;
+
             const yearMonths = now.getMonth() + 1;
-            const yearWeeks = Math.floor(diffYearMs / (1000 * 60 * 60 * 24 * 7));
-            const yearDays = Math.floor(diffYearMs / (1000 * 60 * 60 * 24)) + 1;
-            const yearHours = Math.floor(diffYearMs / (1000 * 60 * 60));
-            const yearMinutes = Math.floor(diffYearMs / (1000 * 60));
-            const yearSeconds = Math.floor(diffYearMs / 1000);
 
-            // Month stats
-            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-            const diffMonthMs = now - startOfMonth;
-            const monthWeeks = Math.floor(diffMonthMs / (1000 * 60 * 60 * 24 * 7));
-            const monthDays = Math.floor(diffMonthMs / (1000 * 60 * 60 * 24)) + 1;
-            const monthHours = Math.floor(diffMonthMs / (1000 * 60 * 60));
-            const monthMinutes = Math.floor(diffMonthMs / (1000 * 60));
-            const monthSeconds = Math.floor(diffMonthMs / 1000);
+            const yearWeeks =
+                Math.floor(
+                    diffYearMs /
+                    (1000 * 60 * 60 * 24 * 7)
+                );
 
-            // Week stats
+            const yearDays =
+                Math.floor(
+                    diffYearMs /
+                    (1000 * 60 * 60 * 24)
+                ) + 1;
+
+            const yearHours =
+                Math.floor(
+                    diffYearMs /
+                    (1000 * 60 * 60)
+                );
+
+            const yearMinutes =
+                Math.floor(
+                    diffYearMs /
+                    (1000 * 60)
+                );
+
+            const yearSeconds =
+                Math.floor(
+                    diffYearMs /
+                    1000
+                );
+
+
+            const startOfMonth =
+                new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    1
+                );
+
+            const diffMonthMs =
+                now - startOfMonth;
+
+            const monthWeeks =
+                Math.floor(
+                    diffMonthMs /
+                    (1000 * 60 * 60 * 24 * 7)
+                );
+
+            const monthDays =
+                Math.floor(
+                    diffMonthMs /
+                    (1000 * 60 * 60 * 24)
+                ) + 1;
+
+            const monthHours =
+                Math.floor(
+                    diffMonthMs /
+                    (1000 * 60 * 60)
+                );
+
+            const monthMinutes =
+                Math.floor(
+                    diffMonthMs /
+                    (1000 * 60)
+                );
+
+            const monthSeconds =
+                Math.floor(
+                    diffMonthMs /
+                    1000
+                );
+
+
             const startOfWeek = new Date(now);
+
             startOfWeek.setHours(0, 0, 0, 0);
-            startOfWeek.setDate(now.getDate() - now.getDay());
-            const diffWeekMs = now - startOfWeek;
-            const weekDays = Math.floor(diffWeekMs / (1000 * 60 * 60 * 24)) + 1;
-            const weekHours = Math.floor(diffWeekMs / (1000 * 60 * 60));
-            const weekMinutes = Math.floor(diffWeekMs / (1000 * 60));
-            const weekSeconds = Math.floor(diffWeekMs / 1000);
 
-            // Day stats
-            const startOfDay = new Date(now);
-            startOfDay.setHours(0, 0, 0, 0);
-            const diffDayMs = now - startOfDay;
-            const dayHours = Math.floor(diffDayMs / (1000 * 60 * 60));
-            const dayMinutes = Math.floor(diffDayMs / (1000 * 60));
-            const daySeconds = Math.floor(diffDayMs / 1000);
+            startOfWeek.setDate(
+                now.getDate() - now.getDay()
+            );
 
-            // Hour stats
-            const startOfHour = new Date(now);
-            startOfHour.setMinutes(0, 0, 0);
-            const diffHourMs = now - startOfHour;
-            const hourMinutes = Math.floor(diffHourMs / (1000 * 60));
-            const hourSeconds = Math.floor(diffHourMs / 1000);
+            const diffWeekMs =
+                now - startOfWeek;
 
-            // Minute stats
-            const startOfMinute = new Date(now);
-            startOfMinute.setSeconds(0, 0);
-            const diffMinuteMs = now - startOfMinute;
-            const minuteSeconds = Math.floor(diffMinuteMs / 1000);
+            const weekDays =
+                Math.floor(
+                    diffWeekMs /
+                    (1000 * 60 * 60 * 24)
+                ) + 1;
+
+            const weekHours =
+                Math.floor(
+                    diffWeekMs /
+                    (1000 * 60 * 60)
+                );
+
+            const weekMinutes =
+                Math.floor(
+                    diffWeekMs /
+                    (1000 * 60)
+                );
+
+            const weekSeconds =
+                Math.floor(
+                    diffWeekMs /
+                    1000
+                );
+
+
+            const startOfDay =
+                new Date(now);
+
+            startOfDay.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+            const diffDayMs =
+                now - startOfDay;
+
+            const dayHours =
+                Math.floor(
+                    diffDayMs /
+                    (1000 * 60 * 60)
+                );
+
+            const dayMinutes =
+                Math.floor(
+                    diffDayMs /
+                    (1000 * 60)
+                );
+
+            const daySeconds =
+                Math.floor(
+                    diffDayMs /
+                    1000
+                );
+
+
+            const startOfHour =
+                new Date(now);
+
+            startOfHour.setMinutes(
+                0,
+                0,
+                0
+            );
+
+            const diffHourMs =
+                now - startOfHour;
+
+            const hourMinutes =
+                Math.floor(
+                    diffHourMs /
+                    (1000 * 60)
+                );
+
+            const hourSeconds =
+                Math.floor(
+                    diffHourMs /
+                    1000
+                );
+
+
+            const startOfMinute =
+                new Date(now);
+
+            startOfMinute.setSeconds(
+                0,
+                0
+            );
+
+            const diffMinuteMs =
+                now - startOfMinute;
+
+            const minuteSeconds =
+                Math.floor(
+                    diffMinuteMs /
+                    1000
+                );
+
 
             return {
-                year: { yearMonths, yearWeeks, yearDays, yearHours, yearMinutes, yearSeconds },
-                month: { monthWeeks, monthDays, monthHours, monthMinutes, monthSeconds },
-                week: { weekDays, weekHours, weekMinutes, weekSeconds },
-                day: { dayHours, dayMinutes, daySeconds },
-                hour: { hourMinutes, hourSeconds },
-                minute: { minuteSeconds }
+                year: {
+                    Months: yearMonths,
+                    Weeks: yearWeeks,
+                    Days: yearDays,
+                    Hours: yearHours,
+                    Minutes: yearMinutes,
+                    Seconds: yearSeconds
+                },
+
+                month: {
+                    Weeks: monthWeeks,
+                    Days: monthDays,
+                    Hours: monthHours,
+                    Minutes: monthMinutes,
+                    Seconds: monthSeconds
+                },
+
+                week: {
+                    Days: weekDays,
+                    Hours: weekHours,
+                    Minutes: weekMinutes,
+                    Seconds: weekSeconds
+                },
+
+                day: {
+                    Hours: dayHours,
+                    Minutes: dayMinutes,
+                    Seconds: daySeconds
+                },
+
+                hour: {
+                    Minutes: hourMinutes,
+                    Seconds: hourSeconds
+                },
+
+                minute: {
+                    Seconds: minuteSeconds
+                }
             };
         }
 
         function updateTab() {
-            const stats = calculateRelativeStats();
-            const activeTab = document.querySelector('.tab.active').dataset.tab;
+            const stats =
+                calculateRelativeStats();
 
-            let text = '';
-            switch (activeTab) {
-                case 'year':
-                    text = `Year Progress:\nMonths: ${stats.year.yearMonths}\nWeeks: ${stats.year.yearWeeks}\nDays: ${stats.year.yearDays}\nHours: ${stats.year.yearHours}\nMinutes: ${stats.year.yearMinutes}\nSeconds: ${stats.year.yearSeconds}`;
-                    break;
-                case 'month':
-                    text = `Month Progress:\nWeeks: ${stats.month.monthWeeks}\nDays: ${stats.month.monthDays}\nHours: ${stats.month.monthHours}\nMinutes: ${stats.month.monthMinutes}\nSeconds: ${stats.month.monthSeconds}`;
-                    break;
-                case 'week':
-                    text = `Week Progress:\nDays: ${stats.week.weekDays}\nHours: ${stats.week.weekHours}\nMinutes: ${stats.week.weekMinutes}\nSeconds: ${stats.week.weekSeconds}`;
-                    break;
-                case 'day':
-                    text = `Day Progress:\nHours: ${stats.day.dayHours}\nMinutes: ${stats.day.dayMinutes}\nSeconds: ${stats.day.daySeconds}`;
-                    break;
-                case 'hour':
-                    text = `Hour Progress:\nMinutes: ${stats.hour.hourMinutes}\nSeconds: ${stats.hour.hourSeconds}`;
-                    break;
-                case 'minute':
-                    text = `Minute Progress:\nSeconds: ${stats.minute.minuteSeconds}`;
-                    break;
-            }
+            const activeTab =
+                document.querySelector(
+                    '.tab.active'
+                ).dataset.tab;
 
-            tabContent.textContent = text;
+            cardTitle.textContent =
+                activeTab.charAt(0).toUpperCase() +
+                activeTab.slice(1) +
+                ' Progress';
+
+            const values =
+                stats[activeTab];
+
+            tabContent.innerHTML =
+                Object.entries(values)
+                    .map(([label, value]) => `
+                        <div class="stat">
+                            <span class="stat-label">
+                                ${label}
+                            </span>
+
+                            <div class="stat-value">
+                                ${value.toLocaleString()}
+                            </div>
+                        </div>
+                    `)
+                    .join('');
         }
 
         tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                updateTab();
-            });
+            tab.addEventListener(
+                'click',
+                () => {
+                    tabs.forEach(
+                        item =>
+                            item.classList.remove(
+                                'active'
+                            )
+                    );
+
+                    tab.classList.add(
+                        'active'
+                    );
+
+                    updateTab();
+                }
+            );
         });
 
-        setInterval(updateTab, 1000);
+        setInterval(
+            updateTab,
+            1000
+        );
+
         updateTab();
     </script>
 
 </body>
 
 </html>
-
+```
