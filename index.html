@@ -43,46 +43,110 @@
     <!-- header -->
     <header class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-gray-500/30">
       <div class="text-lg text-gray-500 dark:text-gray-400">Relative Time Statistics</div>
-      <div class="font-mono text-sm text-accel text-blue-600 dark:text-accent-dark">clock.alphabeti.co.tz</div>
+      <div class="font-mono text-sm text-blue-600 dark:text-accent-dark">
+        clock.alphabeti.co.tz
+      </div>
     </header>
 
     <!-- hero -->
     <div class="text-center pt-8 pb-2">
       <h1 class="text-4xl font-normal mb-3">Time Progress</h1>
-      <p class="text-gray-500 dark:text-gray-400">Live relative statistics for the current period.</p>
+      <p class="text-gray-500 dark:text-gray-400">
+        Live relative statistics for the current period.
+      </p>
     </div>
 
     <!-- clock -->
-    <div id="clock"
-      class="mt-6 p-7 text-center rounded-2xl border border-gray-500/30 bg-white/70 dark:bg-black/30 backdrop-blur-md shadow-xl font-mono text-2xl tracking-wide">
-      YYYY, Month DD:HH:MM:SS
+    <div
+      id="clock"
+      class="mt-6 p-7 text-center rounded-2xl border border-gray-500/30 bg-white/70 dark:bg-black/30 backdrop-blur-md shadow-xl font-mono text-2xl tracking-wide"
+    >
+      Thursday, 2026 August 27 18:00:00.000
     </div>
 
     <!-- tabs -->
     <div class="mt-6 p-3 rounded-2xl border border-gray-500/30 bg-white/70 dark:bg-black/30 backdrop-blur-md shadow-xl">
       <div id="tabs" class="flex flex-wrap justify-center gap-2">
-        <button data-tab="year" class="tab-btn px-4 py-2 rounded-lg text-sm text-white bg-blue-600 dark:bg-accent-dark">Year</button>
-        <button data-tab="month" class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Month</button>
-        <button data-tab="week" class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Week</button>
-        <button data-tab="day" class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Day</button>
-        <button data-tab="hour" class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Hour</button>
-        <button data-tab="minute" class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Minute</button>
+
+        <button
+          data-tab="year"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-white bg-blue-600 dark:bg-accent-dark"
+        >
+          Year
+        </button>
+
+        <button
+          data-tab="month"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+        >
+          Month
+        </button>
+
+        <button
+          data-tab="week"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+        >
+          Week
+        </button>
+
+        <button
+          data-tab="day"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+        >
+          Day
+        </button>
+
+        <button
+          data-tab="hour"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+        >
+          Hour
+        </button>
+
+        <button
+          data-tab="minute"
+          class="tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+        >
+          Minute
+        </button>
+
       </div>
     </div>
 
     <!-- stats card -->
     <div class="mt-6 rounded-2xl border border-gray-500/30 bg-white/70 dark:bg-black/30 backdrop-blur-md shadow-xl overflow-hidden">
+
       <div class="flex items-center justify-between px-6 py-4 border-b border-gray-500/30">
-        <span id="cardTitle" class="text-gray-500 dark:text-gray-400">Year Progress</span>
+        <span id="cardTitle" class="text-gray-500 dark:text-gray-400">
+          Year Progress
+        </span>
 
         <!-- elapsed / remaining toggle -->
-        <div id="modeToggle" class="flex text-sm rounded-lg border border-gray-500/30 overflow-hidden">
-          <button data-mode="elapsed" class="mode-btn px-3 py-1 text-white bg-blue-600 dark:bg-accent-dark">Elapsed</button>
-          <button data-mode="remaining" class="mode-btn px-3 py-1 text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600">Remaining</button>
+        <div
+          id="modeToggle"
+          class="flex text-sm rounded-lg border border-gray-500/30 overflow-hidden"
+        >
+          <button
+            data-mode="elapsed"
+            class="mode-btn px-3 py-1 text-white bg-blue-600 dark:bg-accent-dark"
+          >
+            Elapsed
+          </button>
+
+          <button
+            data-mode="remaining"
+            class="mode-btn px-3 py-1 text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600"
+          >
+            Remaining
+          </button>
         </div>
       </div>
 
-      <div id="tabContent" class="grid grid-cols-2 gap-3 p-7"></div>
+      <div
+        id="tabContent"
+        class="grid grid-cols-2 gap-3 p-7"
+      ></div>
+
     </div>
 
     <footer class="mt-10 pt-5 border-t border-gray-500/30 text-center text-sm text-gray-500 dark:text-gray-400">
@@ -95,112 +159,448 @@
   const clockEl = document.getElementById('clock');
   const tabContent = document.getElementById('tabContent');
   const cardTitle = document.getElementById('cardTitle');
+
   let activeTab = 'year';
   let mode = 'elapsed';
 
+  const pad = n => String(n).padStart(2, '0');
+
   function updateClock() {
     const now = new Date();
-    const month = now.toLocaleString('default', { month: 'long' });
-    const pad = n => String(n).padStart(2, '0');
+
+    const weekday = now.toLocaleDateString('default', {
+      weekday: 'long'
+    });
+
+    const month = now.toLocaleString('default', {
+      month: 'long'
+    });
+
+    const milliseconds = String(
+      now.getMilliseconds()
+    ).padStart(3, '0');
+
     clockEl.textContent =
-      `${now.getFullYear()}, ${month} ${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      `${weekday}, ${now.getFullYear()} ${month} ${pad(now.getDate())} ` +
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}.${milliseconds}`;
   }
 
-  // returns { start, end } boundaries for each period type
+  /*
+    Returns boundaries for every current period.
+
+    Week starts on Sunday:
+    Sunday = day 1
+    Monday = day 2
+    ...
+    Saturday = day 7
+  */
   function periodBounds(now) {
-    const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
-    const startOfWeek = new Date(now); startOfWeek.setHours(0,0,0,0); startOfWeek.setDate(d - now.getDay());
-    const startOfDay = new Date(now); startOfDay.setHours(0,0,0,0);
-    const startOfHour = new Date(now); startOfHour.setMinutes(0,0,0);
-    const startOfMinute = new Date(now); startOfMinute.setSeconds(0,0);
+    const y = now.getFullYear();
+    const m = now.getMonth();
+    const d = now.getDate();
+
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(d - now.getDay());
+
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    const startOfHour = new Date(now);
+    startOfHour.setMinutes(0, 0, 0);
+
+    const startOfMinute = new Date(now);
+    startOfMinute.setSeconds(0, 0);
 
     return {
-      year:   { start: new Date(y,0,1),        end: new Date(y+1,0,1) },
-      month:  { start: new Date(y,m,1),        end: new Date(y,m+1,1) },
-      week:   { start: startOfWeek,            end: new Date(+startOfWeek + 7*86400000) },
-      day:    { start: startOfDay,             end: new Date(+startOfDay + 86400000) },
-      hour:   { start: startOfHour,            end: new Date(+startOfHour + 3600000) },
-      minute: { start: startOfMinute,          end: new Date(+startOfMinute + 60000) },
+      year: {
+        start: new Date(y, 0, 1),
+        end: new Date(y + 1, 0, 1)
+      },
+
+      month: {
+        start: new Date(y, m, 1),
+        end: new Date(y, m + 1, 1)
+      },
+
+      week: {
+        start: startOfWeek,
+        end: new Date(+startOfWeek + 7 * 86400000)
+      },
+
+      day: {
+        start: startOfDay,
+        end: new Date(+startOfDay + 86400000)
+      },
+
+      hour: {
+        start: startOfHour,
+        end: new Date(+startOfHour + 3600000)
+      },
+
+      minute: {
+        start: startOfMinute,
+        end: new Date(+startOfMinute + 60000)
+      }
     };
   }
 
-  const MS = { week: 6048e5, day: 864e5, hour: 36e5, minute: 6e4, second: 1e3 };
+  const MS = {
+    week: 604800000,
+    day: 86400000,
+    hour: 3600000,
+    minute: 60000,
+    second: 1000,
+    millisecond: 1
+  };
 
   function breakdown(ms, units) {
     const out = {};
-    for (const u of units) out[u.label] = Math.floor(ms / MS[u.unit]) + (u.plusOne || 0);
+
+    for (const u of units) {
+      out[u.label] =
+        Math.floor(ms / MS[u.unit]) + (u.plusOne || 0);
+    }
+
     return out;
   }
 
   function calculateStats() {
     const now = new Date();
     const p = periodBounds(now);
-    const elapsedMs = key => now - p[key].start;
-    const remainingMs = key => p[key].end - now;
+
+    const elapsedMs = key =>
+      Math.max(0, now - p[key].start);
+
+    const remainingMs = key =>
+      Math.max(0, p[key].end - now);
 
     const monthsElapsed = now.getMonth() + 1;
     const monthsRemaining = 12 - monthsElapsed;
 
+    const weekDayName = now.toLocaleDateString(
+      'default',
+      { weekday: 'long' }
+    );
+
+    // Sunday = 1, Monday = 2 ... Saturday = 7
+    const weekDayNumber = now.getDay() + 1;
+
+    /*
+      Number of whole weekdays elapsed before today.
+
+      Sunday -> 0
+      Monday -> 1
+      Tuesday -> 2
+      ...
+    */
+    const weekDaysElapsed = now.getDay();
+
+    /*
+      Days remaining after today.
+
+      Sunday -> 6
+      Monday -> 5
+      ...
+      Saturday -> 0
+    */
+    const weekDaysRemaining = 6 - now.getDay();
+
     if (mode === 'elapsed') {
       return {
-        year:   { Months: monthsElapsed, ...breakdown(elapsedMs('year'),  [{label:'Weeks',unit:'week'},{label:'Days',unit:'day',plusOne:1},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]) },
-        month:  breakdown(elapsedMs('month'), [{label:'Weeks',unit:'week'},{label:'Days',unit:'day',plusOne:1},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-        week:   breakdown(elapsedMs('week'),  [{label:'Days',unit:'day',plusOne:1},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-        day:    breakdown(elapsedMs('day'),   [{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-        hour:   breakdown(elapsedMs('hour'),  [{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-        minute: breakdown(elapsedMs('minute'),[{label:'Seconds',unit:'second'}]),
+
+        year: {
+          Months: monthsElapsed,
+
+          ...breakdown(
+            elapsedMs('year'),
+            [
+              { label: 'Weeks', unit: 'week' },
+              { label: 'Days', unit: 'day', plusOne: 1 },
+              { label: 'Hours', unit: 'hour' },
+              { label: 'Minutes', unit: 'minute' },
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('year')
+        },
+
+        month: {
+          ...breakdown(
+            elapsedMs('month'),
+            [
+              { label: 'Weeks', unit: 'week' },
+              { label: 'Days', unit: 'day', plusOne: 1 },
+              { label: 'Hours', unit: 'hour' },
+              { label: 'Minutes', unit: 'minute' },
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('month')
+        },
+
+        week: {
+          'Week Day': `${weekDayName} (${weekDayNumber}/7)`,
+          'Week Days Elapsed': weekDaysElapsed,
+
+          ...breakdown(
+            elapsedMs('week'),
+            [
+              { label: 'Days', unit: 'day', plusOne: 1 },
+              { label: 'Hours', unit: 'hour' },
+              { label: 'Minutes', unit: 'minute' },
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('week')
+        },
+
+        day: {
+          'Week Day': `${weekDayName} (${weekDayNumber}/7)`,
+
+          ...breakdown(
+            elapsedMs('day'),
+            [
+              { label: 'Hours', unit: 'hour' },
+              { label: 'Minutes', unit: 'minute' },
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('day')
+        },
+
+        hour: {
+          ...breakdown(
+            elapsedMs('hour'),
+            [
+              { label: 'Minutes', unit: 'minute' },
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('hour')
+        },
+
+        minute: {
+          ...breakdown(
+            elapsedMs('minute'),
+            [
+              { label: 'Seconds', unit: 'second' }
+            ]
+          ),
+
+          Milliseconds: elapsedMs('minute')
+        }
       };
     }
 
     return {
-      year:   { Months: monthsRemaining, ...breakdown(remainingMs('year'),  [{label:'Weeks',unit:'week'},{label:'Days',unit:'day'},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]) },
-      month:  breakdown(remainingMs('month'), [{label:'Weeks',unit:'week'},{label:'Days',unit:'day'},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-      week:   breakdown(remainingMs('week'),  [{label:'Days',unit:'day'},{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-      day:    breakdown(remainingMs('day'),   [{label:'Hours',unit:'hour'},{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-      hour:   breakdown(remainingMs('hour'),  [{label:'Minutes',unit:'minute'},{label:'Seconds',unit:'second'}]),
-      minute: breakdown(remainingMs('minute'),[{label:'Seconds',unit:'second'}]),
+
+      year: {
+        Months: monthsRemaining,
+
+        ...breakdown(
+          remainingMs('year'),
+          [
+            { label: 'Weeks', unit: 'week' },
+            { label: 'Days', unit: 'day' },
+            { label: 'Hours', unit: 'hour' },
+            { label: 'Minutes', unit: 'minute' },
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('year')
+      },
+
+      month: {
+        ...breakdown(
+          remainingMs('month'),
+          [
+            { label: 'Weeks', unit: 'week' },
+            { label: 'Days', unit: 'day' },
+            { label: 'Hours', unit: 'hour' },
+            { label: 'Minutes', unit: 'minute' },
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('month')
+      },
+
+      week: {
+        'Week Day': `${weekDayName} (${weekDayNumber}/7)`,
+        'Week Days Remaining': weekDaysRemaining,
+
+        ...breakdown(
+          remainingMs('week'),
+          [
+            { label: 'Days', unit: 'day' },
+            { label: 'Hours', unit: 'hour' },
+            { label: 'Minutes', unit: 'minute' },
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('week')
+      },
+
+      day: {
+        'Week Day': `${weekDayName} (${weekDayNumber}/7)`,
+
+        ...breakdown(
+          remainingMs('day'),
+          [
+            { label: 'Hours', unit: 'hour' },
+            { label: 'Minutes', unit: 'minute' },
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('day')
+      },
+
+      hour: {
+        ...breakdown(
+          remainingMs('hour'),
+          [
+            { label: 'Minutes', unit: 'minute' },
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('hour')
+      },
+
+      minute: {
+        ...breakdown(
+          remainingMs('minute'),
+          [
+            { label: 'Seconds', unit: 'second' }
+          ]
+        ),
+
+        Milliseconds: remainingMs('minute')
+      }
     };
   }
 
   function render() {
     const stats = calculateStats();
     const values = stats[activeTab];
-    const label = mode === 'elapsed' ? 'Progress' : 'Remaining';
 
-    cardTitle.textContent = activeTab[0].toUpperCase() + activeTab.slice(1) + ' ' + label;
+    const label =
+      mode === 'elapsed'
+        ? 'Progress'
+        : 'Remaining';
 
-    tabContent.innerHTML = Object.entries(values).map(([k, v]) => `
-      <div class="p-4 rounded-xl border border-gray-500/30 bg-white/90 dark:bg-white/5">
-        <span class="block text-xs text-gray-500 dark:text-gray-400 mb-1">${k}</span>
-        <div class="font-mono text-xl">${v.toLocaleString()}</div>
-      </div>
-    `).join('');
+    cardTitle.textContent =
+      activeTab[0].toUpperCase() +
+      activeTab.slice(1) +
+      ' ' +
+      label;
+
+    tabContent.innerHTML =
+      Object.entries(values)
+        .map(([key, value]) => {
+
+          const displayedValue =
+            typeof value === 'number'
+              ? value.toLocaleString()
+              : value;
+
+          return `
+            <div class="p-4 rounded-xl border border-gray-500/30 bg-white/90 dark:bg-white/5">
+              <span class="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                ${key}
+              </span>
+
+              <div class="font-mono text-xl break-words">
+                ${displayedValue}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
   }
 
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b =>
-        b.className = 'tab-btn px-4 py-2 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600');
-      btn.className = 'tab-btn px-4 py-2 rounded-lg text-sm text-white bg-blue-600 dark:bg-accent-dark';
-      activeTab = btn.dataset.tab;
-      render();
-    });
-  });
+  /*
+    Tab switching
+  */
+  document
+    .querySelectorAll('.tab-btn')
+    .forEach(btn => {
 
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.mode-btn').forEach(b =>
-        b.className = 'mode-btn px-3 py-1 text-gray-500 dark:text-gray-400 hover:bg-blue-600/10 hover:text-blue-600');
-      btn.className = 'mode-btn px-3 py-1 text-white bg-blue-600 dark:bg-accent-dark';
-      mode = btn.dataset.mode;
-      render();
-    });
-  });
+      btn.addEventListener('click', () => {
 
+        document
+          .querySelectorAll('.tab-btn')
+          .forEach(b => {
+            b.className =
+              'tab-btn px-4 py-2 rounded-lg text-sm ' +
+              'text-gray-500 dark:text-gray-400 ' +
+              'hover:bg-blue-600/10 hover:text-blue-600';
+          });
+
+        btn.className =
+          'tab-btn px-4 py-2 rounded-lg text-sm ' +
+          'text-white bg-blue-600 dark:bg-accent-dark';
+
+        activeTab = btn.dataset.tab;
+
+        render();
+      });
+
+    });
+
+  /*
+    Elapsed / Remaining switching
+  */
+  document
+    .querySelectorAll('.mode-btn')
+    .forEach(btn => {
+
+      btn.addEventListener('click', () => {
+
+        document
+          .querySelectorAll('.mode-btn')
+          .forEach(b => {
+            b.className =
+              'mode-btn px-3 py-1 ' +
+              'text-gray-500 dark:text-gray-400 ' +
+              'hover:bg-blue-600/10 hover:text-blue-600';
+          });
+
+        btn.className =
+          'mode-btn px-3 py-1 text-white ' +
+          'bg-blue-600 dark:bg-accent-dark';
+
+        mode = btn.dataset.mode;
+
+        render();
+      });
+
+    });
+
+  /*
+    Initial render
+  */
   updateClock();
   render();
-  setInterval(updateClock, 1000);
-  setInterval(render, 1000);
+
+  /*
+    25 ms gives visibly moving milliseconds
+    without trying to redraw the page every 1 ms.
+  */
+  setInterval(() => {
+    updateClock();
+    render();
+  }, 25);
+
 </script>
 
 </body>
